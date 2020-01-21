@@ -1,7 +1,6 @@
 package com.backendapp.controller;
 
 import com.backendapp.model.Estado;
-import com.backendapp.model.Pais;
 import com.backendapp.service.EstadoService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;

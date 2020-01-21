@@ -1,58 +1,63 @@
 package com.backendapp.controller;
 
 import com.backendapp.model.Pais;
-import com.backendapp.repository.PaisRepository;
+import com.backendapp.service.PaisService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping({"/paises"})
 public class PaisController {
-    private PaisRepository repository;
+    private PaisService service;
 
 
-    PaisController(PaisRepository paisRepository) {
-        this.repository = paisRepository;
+    PaisController(PaisService service) {
+        this.service = service;
     }
 
     @GetMapping
-    public List findAll(){
-        return repository.findAll();
+    public Iterable<Pais> findAll(){
+        return service.findAll();
     }
+    @GetMapping("/search")
+    public Page<Pais> search(
+            @RequestParam("searchTerm") String searchTerm,
+            @RequestParam(
+                    value = "page") int page,
+            @RequestParam(
+                    value = "size") int size) {
+        return service.search(searchTerm, page, size);
+
+    }
+
 
     @GetMapping(path = {"/{id}"})
     public ResponseEntity   paisesById(@PathVariable long id){
-        return repository.findById(id)
+        return service.paisesById(id)
                 .map(record ->ResponseEntity.ok().body(record))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
     public Pais create(@RequestBody Pais pais){
-        return repository.save(pais);
+        return service.savePais(pais);
     }
 
 
     @PutMapping(path ="/{id}")
     public ResponseEntity update(@PathVariable("id") long id,
                                  @RequestBody Pais pais) {
-        return repository.findById(id)
-                .map(u -> {
-                    u.setNome(pais.getNome());
-                    Pais updated = repository.save(u);
-                    return ResponseEntity.ok().body(updated);
-                }).orElse(ResponseEntity.notFound().build());
+        Optional<Pais> updated = service.update(id, pais);
+        return Optional.ofNullable(ResponseEntity.ok().body(updated))
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping(path ={"/{id}"})
     public ResponseEntity<?> delete(@PathVariable long id) {
-        return repository.findById(id)
-                .map(record -> {
-                    repository.deleteById(id);
-                    return ResponseEntity.ok().build();
-                }).orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok().build();
     }
 
 }

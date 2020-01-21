@@ -16,9 +16,12 @@ import java.util.List;
 public class Cidade {
     @Id
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name="id_ibge")
     private Long ibge;
     private String nome;
+    @ManyToOne
+    @JoinColumn(name = "ibge_estado", referencedColumnName = "id_ibge", nullable=false)
+    private Estado estado;
     @OneToMany(
             cascade = CascadeType.ALL,
             orphanRemoval = true

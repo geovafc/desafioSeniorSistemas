@@ -14,7 +14,7 @@ import java.util.List;
 public class Pais {
     @Id
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name="id_ibge")
     private Long ibge;
     private String nome;
     @OneToMany(

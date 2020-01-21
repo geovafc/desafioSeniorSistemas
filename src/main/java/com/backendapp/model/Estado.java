@@ -16,10 +16,13 @@ import java.util.List;
 public class Estado {
     @Id
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name="id_ibge")
     private Long ibge;
     private String nome;
     private String uf;
+    @ManyToOne
+    @JoinColumn(name = "pais", referencedColumnName = "id_ibge")
+    private Pais pais;
     @OneToMany(
             cascade = CascadeType.ALL,
             orphanRemoval = true

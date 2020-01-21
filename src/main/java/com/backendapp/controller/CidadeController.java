@@ -45,6 +45,13 @@ public class CidadeController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping(path = {"/byCep/{cep}"})
+    public ResponseEntity   CidadeByCep(@PathVariable String cep){
+        return service.CidadesByCep(cep)
+                .map(record ->ResponseEntity.ok().body(record))
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @PostMapping(path = {"/{ibgeEstado}"})
     public Cidade createByIBGEEstado(@PathVariable long ibgeEstado, @RequestBody Cidade Cidade){
         return service.saveCidade(ibgeEstado,Cidade);

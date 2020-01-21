@@ -48,6 +48,10 @@ public class CidadeService {
         return repository.findById(id);
     }
 
+    public Optional<Cidade> CidadesByCep( String cep){
+        return repository.cidadeByCep(cep);
+    }
+
     public Page<Cidade> search(
             String searchTerm,
             int page,

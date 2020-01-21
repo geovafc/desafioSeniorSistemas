@@ -11,6 +11,8 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface CidadeRepository extends PagingAndSortingRepository<Cidade, Long> {
 
@@ -19,5 +21,11 @@ public interface CidadeRepository extends PagingAndSortingRepository<Cidade, Lon
     Page<Cidade> search(
             @Param("searchTerm") String searchTerm,
             Pageable pageable);
+
+    @Query(value ="SELECT cd.* FROM Cidade cd, Cep cp where cd.id_ibge=cp.ibge_cidade and cp.cep=:cep", nativeQuery = true)
+    Optional<Cidade> cidadeByCep(
+            @Param("cep") String cep);
+
+
 
 }

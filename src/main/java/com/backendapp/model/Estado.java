@@ -21,7 +21,7 @@ public class Estado {
     private String nome;
     private String uf;
     @ManyToOne
-    @JoinColumn(name = "pais", referencedColumnName = "id_ibge")
+    @JoinColumn(name = "ibge_pais", referencedColumnName = "id_ibge")
     private Pais pais;
     @OneToMany(
             cascade = CascadeType.ALL,

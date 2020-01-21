@@ -5,9 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,5 +25,8 @@ public class Cep {
     private String uf;
     private String unidade;
     private String gia;
+    @ManyToOne
+    @JoinColumn(name = "ibge_cidade", referencedColumnName = "id_ibge", nullable=false)
+    private Cidade cidade;
 
 }

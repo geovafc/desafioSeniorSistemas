@@ -47,7 +47,7 @@ public class CidadeController {
 
     @GetMapping(path = {"/byCep/{cep}"})
     public ResponseEntity   CidadeByCep(@PathVariable String cep){
-        return service.CidadesByCep(cep)
+        return Optional.ofNullable(service.CidadesByCep(cep))
                 .map(record ->ResponseEntity.ok().body(record))
                 .orElse(ResponseEntity.notFound().build());
     }

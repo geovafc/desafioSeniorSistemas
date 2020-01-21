@@ -23,8 +23,10 @@ public interface CidadeRepository extends PagingAndSortingRepository<Cidade, Lon
             Pageable pageable);
 
     @Query(value ="SELECT cd.* FROM Cidade cd, Cep cp where cd.id_ibge=cp.ibge_cidade and cp.cep=:cep", nativeQuery = true)
-    Optional<Cidade> cidadeByCep(
+    Cidade cidadeByCep(
             @Param("cep") String cep);
+
+    Optional<Cidade> findByNome(String nome);
 
 
 

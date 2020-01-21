@@ -14,8 +14,9 @@ import javax.persistence.*;
 public class Cep {
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
+    private Long id;
     private String ibge;
     private String cep;
     private String logradouro;

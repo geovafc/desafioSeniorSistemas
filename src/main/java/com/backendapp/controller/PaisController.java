@@ -22,6 +22,7 @@ public class PaisController {
     public Iterable<Pais> findAll(){
         return service.findAll();
     }
+
     @GetMapping("/search")
     public Page<Pais> search(
             @RequestParam("searchTerm") String searchTerm,
@@ -57,6 +58,7 @@ public class PaisController {
 
     @DeleteMapping(path ={"/{id}"})
     public ResponseEntity<?> delete(@PathVariable long id) {
+        service.delete(id);
         return ResponseEntity.ok().build();
     }
 
